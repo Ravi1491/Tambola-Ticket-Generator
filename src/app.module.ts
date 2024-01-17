@@ -6,6 +6,7 @@ import * as Joi from 'joi';
 import { SequelizeModule } from '@nestjs/sequelize';
 import { applicationConfig } from 'config';
 import { Dialect } from 'sequelize';
+import { TambolaTicketModule } from './tambola-ticket/tambola-ticket.module';
 
 @Module({
   imports: [
@@ -35,6 +36,7 @@ import { Dialect } from 'sequelize';
       autoLoadModels: true,
       synchronize: false,
     }),
+    TambolaTicketModule,
   ],
   controllers: [AppController],
   providers: [AppService],
