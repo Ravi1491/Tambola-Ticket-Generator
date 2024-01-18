@@ -61,8 +61,10 @@ export class TambolaTicketService {
         }
       }
 
-      const finalArray = this.placeZero(ticket);
-      return [finalArray];
+      const modifiedArray = this.placeZero(ticket);
+      const response = this.sortArrayColumn(modifiedArray);
+
+      return [response];
     } catch (error) {
       this.logger.error(`Error in generateTicket: ${error.message}`);
       throw error;
@@ -98,5 +100,40 @@ export class TambolaTicketService {
       this.logger.error(`Error in placeZero: ${error.message}`);
       throw error;
     }
+  }
+
+  sortArrayColumn(sampleArray) {
+    for (let j = 0; j < 9; j++) {
+      let a = sampleArray[0][j];
+      let b = sampleArray[1][j];
+      let c = sampleArray[2][j];
+
+      let sortedArray;
+      if (a !== 0 && b !== 0 && c !== 0) {
+        sortedArray = [a, b, c].sort((x, y) => x - y);
+        sampleArray[0][j] = sortedArray[0];
+        sampleArray[1][j] = sortedArray[1];
+        sampleArray[2][j] = sortedArray[2];
+      } else if (a !== 0 && b !== 0 && c === 0) {
+        sortedArray = [a, b].sort((x, y) => x - y);
+        sampleArray[0][j] = sortedArray[0];
+        sampleArray[1][j] = sortedArray[1];
+        sampleArray[2][j] = 0;
+      } else if (a !== 0 && c !== 0 && b === 0) {
+        sortedArray = [a, c].sort((x, y) => x - y);
+        sampleArray[0][j] = sortedArray[0];
+        sampleArray[1][j] = 0;
+        sampleArray[2][j] = sortedArray[1];
+      } else if (b !== 0 && c !== 0 && a === 0) {
+        sortedArray = [b, c].sort((x, y) => x - y);
+        sampleArray[0][j] = 0;
+        sampleArray[1][j] = sortedArray[0];
+        sampleArray[2][j] = sortedArray[1];
+      } else {
+        continue;
+      }
+    }
+
+    return sampleArray;
   }
 }
