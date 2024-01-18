@@ -27,12 +27,21 @@ export class TambolaTicketService {
     }
   }
 
-  async fetchTicketsFromDatabase(setNumber: number) {
+  async fetchTicketsFromDatabase(
+    setNumber: number,
+    limit?: number,
+    offset?: number,
+  ) {
     try {
+      limit = limit || setNumber * 6;
+      offset = offset || 0;
+
       const tickets = await this.tambolaTicketModel.findAll({
         where: {
           setNumber,
         },
+        limit,
+        offset,
         order: [['ticketNumber', 'ASC']],
       });
 

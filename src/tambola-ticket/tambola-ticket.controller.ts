@@ -75,7 +75,7 @@ export class TambolaTicketController {
   @Get('/getTickets')
   async getTickets(
     @Res() res: Response,
-    @Query() query: { setNumber: number },
+    @Query() query: { setNumber: number; limit: number; offset: number },
   ) {
     try {
       const setNumber = query.setNumber;
@@ -86,7 +86,11 @@ export class TambolaTicketController {
       }
 
       const fetchedTickets =
-        await this.tambolaTicketService.fetchTicketsFromDatabase(setNumber);
+        await this.tambolaTicketService.fetchTicketsFromDatabase(
+          setNumber,
+          query.limit,
+          query.offset,
+        );
 
       if (fetchedTickets.length === 0) {
         return res
