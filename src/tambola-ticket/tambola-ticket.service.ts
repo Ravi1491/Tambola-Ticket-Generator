@@ -20,10 +20,10 @@ export class TambolaTicketService {
     return this.tambolaTicketModel.bulkCreate(ticketRecords);
   }
 
-  async fetchTicketsFromDatabase(N) {
+  async fetchTicketsFromDatabase(setNumber: number) {
     const tickets = await this.tambolaTicketModel.findAll({
       where: {
-        setNumber: N,
+        setNumber,
       },
       order: [['ticketNumber', 'ASC']],
     });
