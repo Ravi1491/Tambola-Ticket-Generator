@@ -14,8 +14,13 @@ module.exports = {
         allowNull: false,
         field: 'ticket_number',
       },
+      setNumber: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        field: 'set_number',
+      },
       ticketData: {
-        type: Sequelize.JSON,
+        type: Sequelize.JSONB,
         allowNull: false,
         field: 'ticket_data',
       },

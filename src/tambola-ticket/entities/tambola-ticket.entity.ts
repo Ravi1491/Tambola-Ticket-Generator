@@ -1,25 +1,30 @@
 import {
   Column,
+  Model,
   CreatedAt,
   DeletedAt,
   PrimaryKey,
   Table,
   UpdatedAt,
+  DataType,
 } from 'sequelize-typescript';
 
 @Table({
   underscored: true,
 })
-export class TambolaTicket {
+export class TambolaTicket extends Model {
   @PrimaryKey
   @Column({ primaryKey: true, autoIncrement: true })
   id: number;
 
-  @Column({ allowNull: false, unique: true })
+  @Column({ allowNull: false })
   ticketNumber: number;
 
   @Column({ allowNull: false })
-  ticketData: Array<Array<number>>;
+  setNumber: number;
+
+  @Column({ defaultValue: {}, type: DataType.JSONB, allowNull: false })
+  ticketData: object;
 
   @CreatedAt
   createdAt: Date;
